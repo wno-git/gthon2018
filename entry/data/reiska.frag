@@ -42,6 +42,30 @@ vec2 fragCoordToView(const in vec4 fragCoord, const in vec2 resolution) {
     return (fragCoord.xy / resolution.xy) * vec2(2.0) - vec2(1.0);
 }
 
+float sphereSDF(vec3 pos, vec3 p) {
+    return length(p - pos) - 1.0;
+}
+
+float sceneSDF(vec3 p) {
+    return sphereSDF(vec3(0, 0, -5), p);
+}
+
+float raymarch(Ray ray) {
+    const float dist_max = 10.0;
+    float dist = 0.0;
+    while (dist < dist_max) {
+        vec3 hitray = ray.origin + ray.direction * dist;
+
+        if (sceneSDF(hitray) < 0) {
+            return 1.0;
+        }
+
+        dist += 0.1;
+    }
+
+    return 0.0;
+}
+
 void main() {
     Camera camera = Camera(
         vec3(0),
@@ -59,6 +83,8 @@ void main() {
         viewCoord,
         ray);
 
-    gl_FragColor = vec4(viewCoord.x, viewCoord.y, 0, 1);
+    float rayhit = raymarch(ray);
+
+    gl_FragColor = vec4(0, rayhit, 0, 1);
 
 }
