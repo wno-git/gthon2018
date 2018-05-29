@@ -1,12 +1,15 @@
+PShader reiska;
 
 void setup() {
     size(1920, 1080, P3D);
+
+    reiska = loadShader("reiska.frag");
+    reiska.set("resolution", float(width), float(height));
 }
 
 void draw() {
     background(0);
 
-    //translate(width/2, height/2, 0);
-    //rectMode(CENTER);
+    shader(reiska);
     rect(0, 0, width, height);
 }
