@@ -146,15 +146,15 @@ void main() {
     Material sphereMaterial = Material(
         1.0,
         1.0,
-        1.0,
-        20
+        0.1,
+        7
     );
 
     vec3 ambient = vec3(0.2, 0.2, 0.2);
 
     Light light = Light(
         vec3(1.0, 1.0, 1.0),
-        vec3(0.3, 0.3, 0.3),
+        vec3(0.4, 0.4, 0.4),
         vec3(1.0, 1.0, 1.0)
     );
 
