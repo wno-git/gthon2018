@@ -71,6 +71,21 @@ float raymarch(Ray ray) {
     return NO_HIT;
 }
 
+vec3 gradient(vec3 hit) {
+    float EPSILON = 0.001;
+
+    vec3 ex = EPSILON * vec3(1, 0, 0);
+    float dx = sceneSDF(hit + ex) - sceneSDF(hit - ex);
+
+    vec3 ey = EPSILON * vec3(0, 1, 0);
+    float dy = sceneSDF(hit + ey) - sceneSDF(hit - ey);
+
+    vec3 ez = EPSILON * vec3(0, 0, 1);
+    float dz = sceneSDF(hit + ez) - sceneSDF(hit - ez);
+
+    return normalize(vec3(dx, dy, dz));
+}
+
 vec3 drawBackground(Ray ray) {
     // horizon
     if (ray.direction.y > 0) {
@@ -99,10 +114,12 @@ void main() {
 
     float rayhit = raymarch(ray);
 
+    vec3 normal = gradient(ray.origin + ray.direction * rayhit);
+
     if (rayhit < 0) {
         gl_FragColor = vec4(drawBackground(ray), 1.0);
     } else {
-        gl_FragColor = vec4(0, rayhit, 0, 1);
+        gl_FragColor = vec4(normal.x, normal.y, normal.z, 1);
     }
 
 }
