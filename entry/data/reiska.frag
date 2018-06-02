@@ -4,6 +4,7 @@ varying vec4 vertColor;
 varying vec4 vertTexCoord;
 
 uniform vec2 resolution;
+uniform float time;
 
 struct Ray {
     vec3 origin;
@@ -53,6 +54,32 @@ vec2 fragCoordToView(const in vec4 fragCoord, const in vec2 resolution) {
     return (fragCoord.xy / resolution.xy) * vec2(2.0) - vec2(1.0);
 }
 
+vec3 rotation(vec3 axis, float angle, vec3 p) {
+    // ref: https://paroj.github.io/gltut/Positioning/Tut06%20Rotation.html
+
+    float c = cos(angle);
+    float s = sin(angle);
+    float ic = 1 - c;
+
+    float x = axis.x;
+    float y = axis.y;
+    float z = axis.z;
+
+    vec3 axis2 = pow(axis, vec3(2, 2, 2));
+
+    float x2 = axis2.x;
+    float y2 = axis2.y;
+    float z2 = axis2.z;
+
+    mat3 rot = mat3(
+        x2 + (1 - x2) * c, ic * x * y + z * s, ic * x * z - y * s,
+        ic * x * y - z * s, y2 + (1 - y2) * c, ic * y * z + x * s,
+        ic * x * z + y * s, ic * y * z - x * s, z2 + (1 - z2) * c
+    );
+
+    return inverse(rot) * p;
+}
+
 float sphereSDF(vec3 pos, vec3 p) {
     return length(p - pos) - 1.0;
 }
@@ -65,7 +92,11 @@ float cubeSDF(vec3 pos, vec3 radius, vec3 p) {
 
 float sceneSDF(vec3 p) {
     //return sphereSDF(vec3(0, 0, -5), p);
-    return cubeSDF(vec3(0, 0, -5), vec3(1, 1, 1), p);
+
+    p -= vec3(0, 0, -5);
+    p = rotation(vec3(0.3, 1, 0), time, p);
+
+    return cubeSDF(vec3(0, 0, 0), vec3(1, 1, 1), p);
 }
 
 // ref: http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/

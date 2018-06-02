@@ -10,6 +10,8 @@ void setup() {
 void draw() {
     background(0);
 
+    reiska.set("time", millis() / 1000.0);
+
     shader(reiska);
     rect(0, 0, width, height);
 }
