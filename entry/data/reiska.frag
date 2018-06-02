@@ -51,9 +51,10 @@ float sceneSDF(vec3 p) {
 }
 
 float raymarch(Ray ray) {
-    const float dist_max = 10.0;
+    const float DIST_MAX = 10.0;
+
     float dist = 0.0;
-    while (dist < dist_max) {
+    while (dist < DIST_MAX) {
         vec3 hitray = ray.origin + ray.direction * dist;
 
         if (sceneSDF(hitray) < 0) {
