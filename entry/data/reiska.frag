@@ -70,6 +70,15 @@ float raymarch(Ray ray) {
     return -1.0;
 }
 
+vec3 drawBackground(Ray ray) {
+    // horizon
+    if (ray.direction.y > 0) {
+        return vec3(0.0, 0.0, 0.7);
+    } else {
+        return vec3(0.3, 0.3, 0.3);
+    }
+}
+
 void main() {
     Camera camera = Camera(
         vec3(0),
@@ -89,6 +98,10 @@ void main() {
 
     float rayhit = raymarch(ray);
 
-    gl_FragColor = vec4(0, rayhit, 0, 1);
+    if (rayhit < 0) {
+        gl_FragColor = vec4(drawBackground(ray), 1.0);
+    } else {
+        gl_FragColor = vec4(0, rayhit, 0, 1);
+    }
 
 }
