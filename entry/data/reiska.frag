@@ -80,8 +80,8 @@ vec3 rotation(vec3 axis, float angle, vec3 p) {
     return inverse(rot) * p;
 }
 
-float sphereSDF(vec3 pos, vec3 p) {
-    return length(p - pos) - 1.0;
+float sphereSDF(vec3 pos, float radius, vec3 p) {
+    return length(p - pos) - radius;
 }
 
 float cubeSDF(vec3 pos, vec3 radius, vec3 p) {
@@ -94,9 +94,13 @@ float sceneSDF(vec3 p) {
     //return sphereSDF(vec3(0, 0, -5), p);
 
     p -= vec3(0, 0, -5);
-    p = rotation(vec3(0.3, 1, 0), time, p);
 
-    return cubeSDF(vec3(0, 0, 0), vec3(1, 1, 1), p);
+    vec3 p1 = rotation(vec3(0.3, 1, 0.1), time*1.3, p);
+
+    float cube = cubeSDF(vec3(0, 0, 0), vec3(1), p1);
+    float sphere = sphereSDF(vec3(0, 0, 0), 1.4, p);
+
+    return max(-sphere, cube);
 }
 
 // ref: http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/
@@ -182,7 +186,7 @@ void main() {
     );
 
     Material sphereMaterial = Material(
-        1.0,
+        0.0,
         1.0,
         0.1,
         7
