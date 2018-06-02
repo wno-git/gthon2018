@@ -52,19 +52,22 @@ float sceneSDF(vec3 p) {
 
 float raymarch(Ray ray) {
     const float DIST_MAX = 10.0;
+    const float EPSILON = 0.01;
 
     float dist = 0.0;
     while (dist < DIST_MAX) {
-        vec3 hitray = ray.origin + ray.direction * dist;
+        vec3 march = ray.origin + ray.direction * dist;
 
-        if (sceneSDF(hitray) < 0) {
-            return 1.0;
+        float dist_closest = sceneSDF(march);
+
+        if (dist_closest < EPSILON) {
+            return dist;
         }
 
-        dist += 0.1;
+        dist += dist_closest;
     }
 
-    return 0.0;
+    return -1.0;
 }
 
 void main() {
