@@ -5,8 +5,6 @@ varying vec4 vertTexCoord;
 
 uniform vec2 resolution;
 
-const float FAR = 9999;
-
 struct Ray {
     vec3 origin;
     vec3 direction;
@@ -50,24 +48,27 @@ float sceneSDF(vec3 p) {
     return sphereSDF(vec3(0, 0, -5), p);
 }
 
+// ref: http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/
 float raymarch(Ray ray) {
-    const float DIST_MAX = 10.0;
+    const float FAR = 100.0;
     const float EPSILON = 0.01;
+    const int STEPS_MAX = 100;
+    const float NO_HIT = -1.0;
 
     float dist = 0.0;
-    while (dist < DIST_MAX) {
+    for (int i = 0; i < STEPS_MAX; ++i) {
         vec3 march = ray.origin + ray.direction * dist;
 
         float dist_closest = sceneSDF(march);
 
-        if (dist_closest < EPSILON) {
-            return dist;
-        }
+        if (dist_closest < EPSILON) return dist;
 
         dist += dist_closest;
+
+        if (dist > FAR) return NO_HIT;
     }
 
-    return -1.0;
+    return NO_HIT;
 }
 
 vec3 drawBackground(Ray ray) {
