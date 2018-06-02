@@ -18,6 +18,19 @@ struct Camera {
     float aspect;
 };
 
+struct Material {
+    float ambient;
+    float diffuse;
+    float specular;
+    float shininess;
+};
+
+struct Light {
+    vec3 position;
+    vec3 diffuse;
+    vec3 specular;
+};
+
 /* generate ray from a perspective camera */
 void generateRayPerspective(
         const in Camera camera,
@@ -86,6 +99,32 @@ vec3 gradient(vec3 hit) {
     return normalize(vec3(dx, dy, dz));
 }
 
+vec3 phong(Material material, vec3 to_camera, vec3 normal, vec3 ambient, Light light) {
+    const vec3 ill_ambient = material.ambient * ambient;
+
+    const vec3 light_dir = normalize(light.position);
+
+    vec3 ill_diffuse =
+        material.diffuse *
+            dot(normal, light_dir) * light.diffuse;
+
+    vec3 reflection = reflect(-light_dir, normal);
+
+    vec3 ill_specular = vec3(0);
+
+    // TODO: this code could be simplified with some clamp() like in
+    // https://paroj.github.io/gltut/Illumination/Tut11%20Phong%20Model.html
+
+    if (dot(light_dir, normal) > 0) {
+        ill_specular =
+            material.specular *
+                pow(dot(reflection, to_camera), material.shininess) *
+                    light.specular;
+    }
+
+    return ill_ambient + ill_diffuse + ill_specular;
+}
+
 vec3 drawBackground(Ray ray) {
     // horizon
     if (ray.direction.y > 0) {
@@ -104,6 +143,21 @@ void main() {
         float(resolution.x) / float(resolution.y)
     );
 
+    Material sphereMaterial = Material(
+        1.0,
+        1.0,
+        1.0,
+        20
+    );
+
+    vec3 ambient = vec3(0.2, 0.2, 0.2);
+
+    Light light = Light(
+        vec3(1.0, 1.0, 1.0),
+        vec3(0.3, 0.3, 0.3),
+        vec3(1.0, 1.0, 1.0)
+    );
+
     vec2 viewCoord = fragCoordToView(gl_FragCoord, resolution);
 
     Ray ray;
@@ -119,7 +173,13 @@ void main() {
     if (rayhit < 0) {
         gl_FragColor = vec4(drawBackground(ray), 1.0);
     } else {
-        gl_FragColor = vec4(normal.x, normal.y, normal.z, 1);
+        vec3 shading = phong(
+            sphereMaterial,
+            -ray.direction,
+            normal,
+            ambient,
+            light);
+        gl_FragColor = vec4(shading, 1);
     }
 
 }
