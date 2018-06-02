@@ -57,8 +57,15 @@ float sphereSDF(vec3 pos, vec3 p) {
     return length(p - pos) - 1.0;
 }
 
+float cubeSDF(vec3 pos, vec3 radius, vec3 p) {
+    p -= pos;
+    // http://iquilezles.org/www/articles/distfunctions/distfunctions.htm
+    return length(max(abs(p) - radius, 0));
+}
+
 float sceneSDF(vec3 p) {
-    return sphereSDF(vec3(0, 0, -5), p);
+    //return sphereSDF(vec3(0, 0, -5), p);
+    return cubeSDF(vec3(0, 0, -5), vec3(1, 1, 1), p);
 }
 
 // ref: http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/
