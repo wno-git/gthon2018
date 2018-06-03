@@ -176,6 +176,10 @@ vec3 drawBackground(Ray ray) {
     }
 }
 
+vec2 pixelizeCoord(vec2 coord, float size) {
+    return floor(coord * size) / size;
+}
+
 void main() {
     Camera camera = Camera(
         vec3(0),
