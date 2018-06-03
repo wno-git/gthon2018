@@ -106,7 +106,7 @@ float sceneSDF(vec3 p) {
 // ref: http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/
 float raymarch(Ray ray) {
     const float FAR = 100.0;
-    const float EPSILON = 0.01;
+    const float EPSILON = 0.001;
     const int STEPS_MAX = 100;
     const float NO_HIT = -1.0;
 
