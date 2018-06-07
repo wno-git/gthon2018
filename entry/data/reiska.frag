@@ -216,16 +216,21 @@ void main() {
 
     vec3 normal = gradient(ray.origin + ray.direction * rayhit);
 
+    vec3 color = vec3(0);
+
     if (rayhit < 0) {
-        gl_FragColor = vec4(drawBackground(ray), 1.0);
+        color = drawBackground(ray);
     } else {
-        vec3 shading = phong(
+        color = phong(
             sphereMaterial,
             -ray.direction,
             normal,
             ambient,
             light);
-        gl_FragColor = vec4(shading, 1);
     }
 
+    const float gamma = 2.2;
+    color = pow(color, vec3(1.0 / gamma));
+
+    gl_FragColor = vec4(color, 1.0);
 }
