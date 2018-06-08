@@ -227,6 +227,15 @@ vec2 pixelizeCoord(vec2 coord, float size) {
     return floor(coord * size) / size;
 }
 
+float fog(float hitDistance, float depth) {
+    // could be used as a depth visualization as well
+    if (hitDistance < 0) {
+        return vec3(0);
+    } else {
+        return vec3(1.0 - smoothstep(0, depth, hitDistance));
+    }
+}
+
 void main() {
     Camera camera = Camera(
         vec3(0),
@@ -276,6 +285,9 @@ void main() {
             ambient,
             light);
     }
+
+    // visulize depth
+    color = fog(rayHit, 10.0);
 
     color = gammaEncode(color);
 
