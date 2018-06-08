@@ -190,18 +190,18 @@ void main() {
     );
 
     Material sphereMaterial = Material(
-        0.0,
         1.0,
-        0.1,
+        1.0,
+        1.0,
         7
     );
 
-    vec3 ambient = vec3(0.2, 0.2, 0.2);
+    vec3 ambient = vec3(0.1, 0.1, 0.1);
 
     Light light = Light(
         vec3(1.0, 1.0, 1.0),
-        vec3(0.4, 0.4, 0.4),
-        vec3(1.0, 1.0, 1.0)
+        vec3(0.3, 0.3, 0.3),
+        vec3(0.0, 0.0, 0.0)
     );
 
     vec2 viewCoord = fragCoordToView(gl_FragCoord, resolution);
