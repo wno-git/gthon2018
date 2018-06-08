@@ -6,6 +6,8 @@ PShader reiska;
 
 Moonlander moonlander;
 
+int BPM = 128;
+
 void setup() {
     size(1280, 720, P3D);
 
@@ -21,7 +23,9 @@ void draw() {
 
     moonlander.update();
 
-    reiska.set("time", millis() / 1000.0);
+    float time = (float) moonlander.getCurrentTime();
+
+    reiska.set("time", time);
 
     shader(reiska);
     rect(0, 0, width, height);
