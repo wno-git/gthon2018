@@ -76,7 +76,26 @@ vec2 fragCoordToView(const in vec4 fragCoord, const in vec2 resolution) {
     return (fragCoord.xy / resolution.xy) * vec2(2.0) - vec2(1.0);
 }
 
-vec3 rotation(vec3 axis, float angle, vec3 p) {
+float sphereSDF(vec3 pos, float radius, vec3 p) {
+    return length(p - pos) - radius;
+}
+
+float cubeSDF(vec3 pos, vec3 radius, vec3 p) {
+    p -= pos;
+    return length(max(abs(p) - radius, 0));
+}
+
+// SDF OPS
+//
+// These are mostly based on
+// http://iquilezles.org/www/articles/distfunctions/distfunctions.htm
+// though some of these I implemented from scratch based on some other tutorials
+
+vec3 opTranslate(vec3 p, vec3 dir) {
+    return p - dir;
+}
+
+vec3 opRotation(vec3 axis, float angle, vec3 p) {
     // ref: https://paroj.github.io/gltut/Positioning/Tut06%20Rotation.html
 
     float c = cos(angle);
@@ -102,24 +121,11 @@ vec3 rotation(vec3 axis, float angle, vec3 p) {
     return inverse(rot) * p;
 }
 
-float sphereSDF(vec3 pos, float radius, vec3 p) {
-    return length(p - pos) - radius;
-}
-
-float cubeSDF(vec3 pos, vec3 radius, vec3 p) {
-    p -= pos;
-    // http://iquilezles.org/www/articles/distfunctions/distfunctions.htm
-    return length(max(abs(p) - radius, 0));
-}
-
-vec3 opTranslate(vec3 p, vec3 dir) {
-    return p - dir;
-}
 
 float sceneSDF(vec3 p) {
     p = opTranslate(p, vec3(0, 0, -5));
 
-    vec3 p1 = rotation(vec3(0.3, 1, 0.1), time*1.3, p);
+    vec3 p1 = opRotation(vec3(0.3, 1, 0.1), time*1.3, p);
 
     float cube = cubeSDF(vec3(0, 0, 0), vec3(1), p1);
     float sphere = sphereSDF(vec3(0, 0, 0), 1.4, p);
