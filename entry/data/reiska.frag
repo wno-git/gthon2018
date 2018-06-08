@@ -186,8 +186,11 @@ vec3 phong(Material material, vec3 to_camera, vec3 normal, vec3 ambient, Light l
                     light.specular;
     }
 
+    // TODO: the specular component should get its color from the light, not
+    // material, I believe
     return material.color * ill_ambient +
-        material.color * ill_diffuse + ill_specular;
+        material.color * ill_diffuse +
+        material.color * ill_specular;
 }
 
 vec3 drawBackground(Ray ray) {
@@ -220,12 +223,12 @@ void main() {
         7
     );
 
-    vec3 ambient = vec3(0.2, 0.2, 0.2);
+    vec3 ambient = vec3(0.1, 0.1, 0.1);
 
     Light light = Light(
         vec3(1.0, 1.0, 1.0),
-        vec3(0.0, 0.0, 0.0),
-        vec3(0.0, 0.0, 0.0)
+        vec3(0.3, 0.3, 0.3),
+        vec3(0.2, 0.2, 0.2)
     );
 
     vec2 viewCoord = fragCoordToView(gl_FragCoord, resolution);
