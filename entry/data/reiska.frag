@@ -127,7 +127,7 @@ float raymarch(Ray ray) {
 }
 
 vec3 gradient(vec3 hit) {
-    float EPSILON = 0.001;
+    float EPSILON = 0.0001;
 
     vec3 ex = EPSILON * vec3(1, 0, 0);
     float dx = sceneSDF(hit + ex) - sceneSDF(hit - ex);
