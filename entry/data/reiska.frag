@@ -89,7 +89,11 @@ float cubeSDF(vec3 pos, vec3 radius, vec3 p) {
 //
 // These are mostly based on
 // http://iquilezles.org/www/articles/distfunctions/distfunctions.htm
-// though some of these I implemented from scratch based on some other tutorials
+// and with some help from
+// http://mercury.sexy/hg_sdf/
+//
+// Though, some of these I implemented from scratch based on some other
+// tutorials. Expect mistakes.
 
 vec3 opTranslate(vec3 p, vec3 dir) {
     return p - dir;
@@ -121,8 +125,15 @@ vec3 opRotation(vec3 axis, float angle, vec3 p) {
     return inverse(rot) * p;
 }
 
+float opRepeat(float p, float size) {
+    return mod(p, size) - 0.5 * size;
+}
 
 float sceneSDF(vec3 p) {
+    //p.x = opRepeat(p.x, 1);
+
+    return sphereSDF(vec3(0, 0, -5), 1.0, p);
+
     p = opTranslate(p, vec3(0, 0, -5));
 
     vec3 p1 = opRotation(vec3(0.3, 1, 0.1), time*1.3, p);
