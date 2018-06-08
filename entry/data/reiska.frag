@@ -287,7 +287,7 @@ void main() {
     }
 
     // visulize depth
-    color = fog(rayHit, 10.0);
+    color = color * fog(rayhit, 10.0);
 
     color = gammaEncode(color);
 
