@@ -20,6 +20,7 @@ struct Camera {
 };
 
 struct Material {
+    vec3 color;
     float ambient;
     float diffuse;
     float specular;
@@ -31,6 +32,24 @@ struct Light {
     vec3 diffuse;
     vec3 specular;
 };
+
+/* GLOBALS */
+
+const float GAMMA = 2.2;
+
+
+vec3 gammaDecode(vec3 color) {
+    return pow(color, vec3(GAMMA));
+}
+
+vec3 gammaEncode(vec3 color) {
+    return pow(color, vec3(1.0 / GAMMA));
+}
+
+/* COLORS */
+
+vec3 PURPLE_SRGB = vec3((146.0/255.0), (7.0/255.0), 255.0);
+vec3 PURPLE = gammaDecode(PURPLE_SRGB);
 
 /* generate ray from a perspective camera */
 void generateRayPerspective(
@@ -190,6 +209,7 @@ void main() {
     );
 
     Material sphereMaterial = Material(
+        PURPLE,
         1.0,
         1.0,
         1.0,
@@ -229,8 +249,7 @@ void main() {
             light);
     }
 
-    const float gamma = 2.2;
-    color = pow(color, vec3(1.0 / gamma));
+    color = pow(color, vec3(1.0 / GAMMA));
 
     gl_FragColor = vec4(color, 1.0);
 }
