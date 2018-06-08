@@ -37,7 +37,6 @@ struct Light {
 
 const float GAMMA = 2.2;
 
-
 vec3 gammaDecode(vec3 color) {
     return pow(color, vec3(GAMMA));
 }
@@ -49,7 +48,11 @@ vec3 gammaEncode(vec3 color) {
 /* COLORS */
 
 vec3 PURPLE_SRGB = vec3((146.0/255.0), (7.0/255.0), 255.0);
+vec3 ORANGERED_SRGB = vec3(1.0, (45.0/255.0), 0);
+
 vec3 PURPLE = gammaDecode(PURPLE_SRGB);
+vec3 ORANGERED = gammaDecode(ORANGERED_SRGB);
+vec3 GREEN_MAX = vec3(0, 1, 0);
 
 /* generate ray from a perspective camera */
 void generateRayPerspective(
@@ -183,7 +186,8 @@ vec3 phong(Material material, vec3 to_camera, vec3 normal, vec3 ambient, Light l
                     light.specular;
     }
 
-    return ill_ambient + ill_diffuse + ill_specular;
+    return material.color * ill_ambient +
+        material.color * ill_diffuse + ill_specular;
 }
 
 vec3 drawBackground(Ray ray) {
@@ -209,18 +213,18 @@ void main() {
     );
 
     Material sphereMaterial = Material(
-        PURPLE,
+        ORANGERED,
         1.0,
         1.0,
         1.0,
         7
     );
 
-    vec3 ambient = vec3(0.1, 0.1, 0.1);
+    vec3 ambient = vec3(0.2, 0.2, 0.2);
 
     Light light = Light(
         vec3(1.0, 1.0, 1.0),
-        vec3(0.3, 0.3, 0.3),
+        vec3(0.0, 0.0, 0.0),
         vec3(0.0, 0.0, 0.0)
     );
 
