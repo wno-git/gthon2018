@@ -1,3 +1,5 @@
+import ddf.minim.*;
+
 PShader reiska;
 
 void setup() {
