@@ -249,7 +249,7 @@ void main() {
             light);
     }
 
-    color = pow(color, vec3(1.0 / GAMMA));
+    color = gammaEncode(color);
 
     gl_FragColor = vec4(color, 1.0);
 }
