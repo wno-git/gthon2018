@@ -126,19 +126,21 @@ vec3 opRotation(vec3 axis, float angle, vec3 p) {
 }
 
 float opRepeat(float p, float size) {
-    return mod(p, size) - 0.5 * size;
+    return mod(p - 0.5*size, size) - 0.5 * size;
 }
 
 float sceneSDF(vec3 p) {
-    //p.x = opRepeat(p.x, 1);
-
-    return sphereSDF(vec3(0, 0, -5), 1.0, p);
-
     p = opTranslate(p, vec3(0, 0, -5));
 
-    vec3 p1 = opRotation(vec3(0.3, 1, 0.1), time*1.3, p);
+    p = opTranslate(p, vec3(0, 0, time));
 
-    float cube = cubeSDF(vec3(0, 0, 0), vec3(1), p1);
+    p.x = opRepeat(p.x, 2);
+    p.y = opRepeat(p.y, 2);
+    p.z = opRepeat(p.z, 2);
+
+    //vec3 p1 = opRotation(vec3(0.3, 1, 0.1), time*1.3, p);
+
+    float cube = cubeSDF(vec3(0, 0, 0), vec3(1), p);
     float sphere = sphereSDF(vec3(0, 0, 0), 1.4, p);
 
     return max(-sphere, cube);
