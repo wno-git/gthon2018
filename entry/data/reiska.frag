@@ -112,10 +112,12 @@ float cubeSDF(vec3 pos, vec3 radius, vec3 p) {
     return length(max(abs(p) - radius, 0));
 }
 
-float sceneSDF(vec3 p) {
-    //return sphereSDF(vec3(0, 0, -5), p);
+vec3 opTranslate(vec3 p, vec3 dir) {
+    return p - dir;
+}
 
-    p -= vec3(0, 0, -5);
+float sceneSDF(vec3 p) {
+    p = opTranslate(p, vec3(0, 0, -5));
 
     vec3 p1 = rotation(vec3(0.3, 1, 0.1), time*1.3, p);
 
