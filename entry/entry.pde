@@ -7,7 +7,7 @@ PShader reiska;
 Moonlander moonlander;
 
 void setup() {
-    size(1920, 1080, P3D);
+    size(1280, 720, P3D);
 
     reiska = loadShader("reiska.frag");
     reiska.set("resolution", float(width), float(height));
