@@ -24,8 +24,14 @@ void draw() {
     moonlander.update();
 
     float time = (float) moonlander.getCurrentTime();
+    float camRotX = (float) moonlander.getValue("camRotX");
+    float camRotY = (float) moonlander.getValue("camRotY");
+    float camRotZ = (float) moonlander.getValue("camRotZ");
 
     reiska.set("time", time);
+    reiska.set("camRotX", camRotX);
+    reiska.set("camRotY", camRotY);
+    reiska.set("camRotZ", camRotZ);
 
     shader(reiska);
     rect(0, 0, width, height);
