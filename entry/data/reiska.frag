@@ -68,10 +68,10 @@ vec3 rgb8ToF(int r, int g, int b) {
 /* COLORS */
 
 vec3 PURPLE_SRGB = rgb8ToF(146, 7, 255);
-vec3 ORANGERED_SRGB = rgb8ToF(255, 45, 0);
 
 vec3 PURPLE = gammaDecode(PURPLE_SRGB);
-vec3 ORANGERED = gammaDecode(ORANGERED_SRGB);
+vec3 ORANGERED = gammaDecode(rgb8ToF(255, 45, 0));
+vec3 GREENGOO = gammaDecode(rgb8ToF(20, 204, 31));
 vec3 GREEN_MAX = vec3(0, 1, 0);
 
 
@@ -79,6 +79,14 @@ vec3 GREEN_MAX = vec3(0, 1, 0);
 
 Material MATERIAL_TUNNEL = Material(
     ORANGERED,
+    1.0,
+    1.0,
+    1.0,
+    7
+);
+
+Material MATERIAL_BLOB = Material(
+    GREENGOO,
     1.0,
     1.0,
     1.0,
@@ -309,7 +317,7 @@ Material getMaterial(int primitive_id) {
     if (p == PRIMITIVE_TUNNEL) {
         return MATERIAL_TUNNEL;
     } else if (p == PRIMITIVE_BLOB) {
-        return MATERIAL_TUNNEL;
+        return MATERIAL_BLOB;
     }
 }
 
