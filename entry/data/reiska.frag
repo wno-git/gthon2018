@@ -12,6 +12,8 @@ uniform float U_CAMROT_Z;
 uniform float U_TUNNEL_DISTANCE;
 uniform float U_TUNNEL_WIDTH;
 uniform float U_FOG_DISTANCE;
+uniform float U_BLOB_DISPLACE;
+uniform float U_DEBUG;
 
 struct Ray {
     vec3 origin;
@@ -81,16 +83,16 @@ Material MATERIAL_TUNNEL = Material(
     ORANGERED,
     1.0,
     1.0,
-    1.0,
+    0.2,
     7
 );
 
 Material MATERIAL_BLOB = Material(
     GREENGOO,
-    1.0,
-    1.0,
-    1.0,
-    7
+    0.7,
+    0.7,
+    1.9,
+    30
 );
 
 /* THINGS */
@@ -142,7 +144,7 @@ float cubeSDF(vec3 pos, vec3 radius, vec3 p) {
 // and with some help from
 // http://mercury.sexy/hg_sdf/
 //
-// Though, some of these I implemented from scratch based on some other
+// Though, some of these I (re)implemented from scratch based on some other
 // tutorials. Expect mistakes.
 
 vec3 opTranslate(vec3 p, vec3 dir) {
@@ -183,6 +185,49 @@ float opIntersect(float a, float b) {
     return max(-a, b);
 }
 
+float opDisplaceSine(vec3 p) {
+    // http://iquilezles.org/www/articles/distfunctions/distfunctions.htm
+    const float f = 40;
+    return sin(p.x * f) * sin(p.y * f) * sin(p.z * f);
+}
+
+
+// This function taken verbatim from:
+// http://iquilezles.org/www/articles/distfunctions/distfunctions.htm
+float smin( float a, float b, float k )
+{
+    float h = clamp( 0.5+0.5*(b-a)/k, 0.0, 1.0 );
+    return mix( b, a, h ) - k*h*(1.0-h);
+}
+
+float blobSDF(vec3 p) {
+    //const float blob_size = 0.1 + rampCurveDown(getBeat(), 1.0)*0.1;
+    const float blob_size = 0.2;
+
+    // quite a mess creating the blob's like this by hand :/
+
+    const float spread = 0.2;
+
+    vec3 p_blob1 = opTranslate(p, vec3(spread, 0, 0));
+    float blob1 = sphereSDF(p_blob1, blob_size);
+
+    vec3 p_blob2 = opTranslate(p, vec3(-spread, 0, 0));
+    float blob2 = sphereSDF(p_blob2, blob_size);
+
+    vec3 p_blob3 = opTranslate(p, vec3(0, spread, 0));
+    float blob3 = sphereSDF(p_blob3, blob_size);
+
+    vec3 p_blob4 = opTranslate(p, vec3(0, -spread, 0));
+    float blob4 = sphereSDF(p_blob4, blob_size);
+
+    const float k = 0.03;
+    float blob = smin(blob1, smin(blob2, smin(blob3, blob4, k), k), k);
+
+    blob += opDisplaceSine(p) * U_BLOB_DISPLACE;
+
+    return blob;
+}
+
 float sceneSDF(vec3 p, inout int primitive_id) {
     vec3 p_tunnel = p;
 
@@ -203,8 +248,9 @@ float sceneSDF(vec3 p, inout int primitive_id) {
 
     vec3 p_blob = opTranslate(p, vec3(0, 0, -1));
 
-    const float blob_size = 0.1 + rampCurveDown(getBeat(), 1.0)*0.1;
-    float dist_blob = sphereSDF(p_blob, blob_size);
+    p_blob = opTranslate(p_blob, vec3(U_DEBUG, 0, 0));
+
+    float dist_blob = blobSDF(p_blob);
 
     // i'm using this to query which primitive the ray hit, in order to shade
     // different things differently. there may be a much better way to do this
@@ -340,7 +386,7 @@ void main() {
     Light light = Light(
         vec3(1.0, 1.0, 1.0),
         vec3(0.3, 0.3, 0.3),
-        vec3(0.2, 0.2, 0.2)
+        vec3(0.4, 0.4, 0.4)
     );
 
     vec2 viewCoord = fragCoordToView(gl_FragCoord, resolution);
@@ -372,6 +418,9 @@ void main() {
 
     // distance fog
     color = color * distanceBlend(ray_hit_distance, U_FOG_DISTANCE * 10.0);
+
+    // visualize normals
+    //color = normal * distanceBlend(ray_hit_distance, U_FOG_DISTANCE * 10.0);
 
     // beat tracking tuning viz
     //color = vec3(rampCurveDown(getBeat(), 1.0));

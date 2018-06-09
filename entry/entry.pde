@@ -30,6 +30,7 @@ void draw() {
     float camRotX = (float) moonlander.getValue("camRotX");
     float camRotY = (float) moonlander.getValue("camRotY");
     float camRotZ = (float) moonlander.getValue("camRotZ");
+    float debugU = (float) moonlander.getValue("debug");
 
     float beat = time * (BPM / 60.0);
 
@@ -37,6 +38,7 @@ void draw() {
     float tunnelDistance = (float) moonlander.getValue("tunnelDistance");
     float tunnelWidth = (float) moonlander.getValue("tunnelWidth");
     float fogDistance = (float) moonlander.getValue("fogDistance");
+    float blobDisplace = (float) moonlander.getValue("blobDisplace");
 
     reiska.set("U_TIME", time);
     reiska.set("U_BEAT", beat);
@@ -46,6 +48,8 @@ void draw() {
     reiska.set("U_TUNNEL_DISTANCE", tunnelDistance);
     reiska.set("U_TUNNEL_WIDTH", tunnelWidth);
     reiska.set("U_FOG_DISTANCE", fogDistance);
+    reiska.set("U_BLOB_DISPLACE", blobDisplace);
+    reiska.set("U_DEBUG", debugU);
 
     shader(reiska);
     rect(0, 0, width, height);

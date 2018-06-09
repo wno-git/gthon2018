@@ -18,6 +18,10 @@
 		<track name="fogDistance">
 			<key row="0" value="0.5" interpolation="0"/>
 		</track>
+		<track name="blobDisplace">
+			<key row="0" value="0.04" interpolation="0"/>
+		</track>
+		<track name="debug"/>
 	</tracks>
 	<bookmarks/>
 </sync>
