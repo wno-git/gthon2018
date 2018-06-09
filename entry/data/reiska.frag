@@ -8,6 +8,7 @@ uniform float U_TIME;
 uniform float U_CAMROT_X;
 uniform float U_CAMROT_Y;
 uniform float U_CAMROT_Z;
+uniform float U_TUNNEL_DISTANCE;
 
 struct Ray {
     vec3 origin;
@@ -141,9 +142,7 @@ float opRepeat(float p, float size) {
 }
 
 float sceneSDF(vec3 p) {
-    p = opTranslate(p, vec3(0, 0, -5));
-
-    p = opTranslate(p, vec3(0, 0, U_TIME));
+    p = opTranslate(p, vec3(0, 0, U_TUNNEL_DISTANCE));
 
     p.x = opRepeat(p.x, 2);
     p.y = opRepeat(p.y, 2);

@@ -23,15 +23,21 @@ void draw() {
 
     moonlander.update();
 
+    /* utility */
+
     float time = (float) moonlander.getCurrentTime();
     float camRotX = (float) moonlander.getValue("camRotX");
     float camRotY = (float) moonlander.getValue("camRotY");
     float camRotZ = (float) moonlander.getValue("camRotZ");
 
+    /* art */
+    float tunnelDistance = (float) moonlander.getValue("tunnelDistance");
+
     reiska.set("U_TIME", time);
     reiska.set("U_CAMROT_X", camRotX);
     reiska.set("U_CAMROT_Y", camRotY);
     reiska.set("U_CAMROT_Z", camRotZ);
+    reiska.set("U_TUNNEL_DISTANCE", tunnelDistance);
 
     shader(reiska);
     rect(0, 0, width, height);
