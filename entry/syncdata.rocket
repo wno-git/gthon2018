@@ -5,6 +5,12 @@
 		</track>
 		<track name="camRotY">
 			<key row="0" value="0" interpolation="0"/>
+			<key row="128" value="0" interpolation="1"/>
+			<key row="152" value="0.2" interpolation="0"/>
+			<key row="224" value="0.2" interpolation="1"/>
+			<key row="248" value="-0.2" interpolation="0"/>
+			<key row="288" value="-0.2" interpolation="3"/>
+			<key row="296" value="0" interpolation="0"/>
 		</track>
 		<track name="camRotZ">
 			<key row="0" value="0" interpolation="0"/>
@@ -28,9 +34,16 @@
 		<track name="fovAdjust">
 			<key row="0" value="1" interpolation="2"/>
 			<key row="24" value="1" interpolation="0"/>
+			<key row="280" value="1" interpolation="3"/>
+			<key row="296" value="0.8" interpolation="1"/>
+			<key row="312" value="1" interpolation="0"/>
 		</track>
 		<track name="blobZ">
 			<key row="0" value="-100" interpolation="0"/>
+			<key row="280" value="-10" interpolation="3"/>
+			<key row="296" value="-1" interpolation="2"/>
+			<key row="299" value="-1.7" interpolation="2"/>
+			<key row="301" value="-1.5" interpolation="0"/>
 		</track>
 	</tracks>
 	<bookmarks/>

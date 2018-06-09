@@ -47,6 +47,7 @@ struct Light {
 /* GLOBALS */
 
 const float GAMMA = 2.2;
+const float PI = 3.14;
 
 /* PRIMITIVES */
 
@@ -231,6 +232,8 @@ float blobSDF(vec3 p) {
 }
 
 float sceneSDF(vec3 p, inout int primitive_id) {
+    p = opRotation(vec3(0, 1, 0), U_CAMROT_Y * PI, p);
+
     vec3 p_tunnel = p;
 
     float tunnel_distance = getBeat() * 2.0 + U_TUNNEL_DISTANCE;
