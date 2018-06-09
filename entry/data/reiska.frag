@@ -155,6 +155,10 @@ float opRepeat(float p, float size) {
     return mod(p - 0.5*size, size) - 0.5 * size;
 }
 
+float opIntersect(float a, float b) {
+    return max(-a, b);
+}
+
 float sceneSDF(vec3 p) {
     float tunnel_distance = getBeat() * 2.0 + U_TUNNEL_DISTANCE;
     p = opTranslate(p, vec3(0, 0, tunnel_distance));
@@ -168,7 +172,7 @@ float sceneSDF(vec3 p) {
     float cube = cubeSDF(vec3(0, 0, 0), vec3(1), p);
     float sphere = sphereSDF(vec3(0, 0, 0), U_TUNNEL_WIDTH, p);
 
-    return max(-sphere, cube);
+    return opIntersect(sphere, cube);
 }
 
 // ref: http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/
