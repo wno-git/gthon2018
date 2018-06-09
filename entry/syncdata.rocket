@@ -31,8 +31,10 @@
 			<key row="0" value="0.03" interpolation="0"/>
 			<key row="512" value="0.01" interpolation="0"/>
 			<key row="640" value="0.01" interpolation="1"/>
-			<key row="672" value="0.1" interpolation="0"/>
-			<key row="673" value="0.03" interpolation="0"/>
+			<key row="656" value="0.1" interpolation="1"/>
+			<key row="672" value="0.01" interpolation="1"/>
+			<key row="688" value="0.1" interpolation="1"/>
+			<key row="704" value="0.01" interpolation="0"/>
 		</track>
 		<track name="debug">
 			<key row="0" value="0" interpolation="0"/>
@@ -62,11 +64,10 @@
 			<key row="0" value="1" interpolation="0"/>
 			<key row="512" value="0.1" interpolation="0"/>
 			<key row="640" value="0.1" interpolation="0"/>
-			<key row="673" value="1" interpolation="0"/>
 		</track>
 		<track name="blobBlink">
 			<key row="512" value="5" interpolation="0"/>
-			<key row="673" value="0" interpolation="0"/>
+			<key row="704" value="0" interpolation="0"/>
 		</track>
 	</tracks>
 	<bookmarks/>
