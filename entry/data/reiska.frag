@@ -117,8 +117,8 @@ vec2 fragCoordToView(const in vec4 fragCoord, const in vec2 resolution) {
     return (fragCoord.xy / resolution.xy) * vec2(2.0) - vec2(1.0);
 }
 
-float sphereSDF(vec3 pos, float radius, vec3 p) {
-    return length(p - pos) - radius;
+float sphereSDF(vec3 p, float radius) {
+    return length(p) - radius;
 }
 
 float cubeSDF(vec3 pos, vec3 radius, vec3 p) {
@@ -185,7 +185,8 @@ float sceneSDF(vec3 p, inout int primitive_id) {
     //vec3 p1 = opRotation(vec3(0.3, 1, 0.1), U_TIME*1.3, p);
 
     float cube = cubeSDF(vec3(0, 0, 0), vec3(1), p);
-    float sphere = sphereSDF(vec3(0, 0, 0), U_TUNNEL_WIDTH, p);
+
+    float sphere = sphereSDF(p, U_TUNNEL_WIDTH);
 
     float dist_tunnel = opIntersect(sphere, cube);
 
