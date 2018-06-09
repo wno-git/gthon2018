@@ -5,7 +5,9 @@ varying vec4 vertTexCoord;
 
 uniform vec2 resolution;
 uniform float U_TIME;
-
+uniform float U_CAMROT_X;
+uniform float U_CAMROT_Y;
+uniform float U_CAMROT_Z;
 
 struct Ray {
     vec3 origin;
