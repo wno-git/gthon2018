@@ -67,6 +67,17 @@ vec3 PURPLE = gammaDecode(PURPLE_SRGB);
 vec3 ORANGERED = gammaDecode(ORANGERED_SRGB);
 vec3 GREEN_MAX = vec3(0, 1, 0);
 
+/* THINGS */
+
+float getBeat() {
+    const float beat_ofs = 0.05;
+    return U_BEAT + beat_ofs;
+}
+
+float rampCurveDown(float beat, float length) {
+    return 1 - mod(beat, length);
+}
+
 /* generate ray from a perspective camera */
 void generateRayPerspective(
         const in Camera camera,
@@ -301,6 +312,9 @@ void main() {
 
     // distance fog
     color = color * distanceBlend(rayhit, 10.0);
+
+    // beat tracking tuning viz
+    //color = vec3(rampCurveDown(getBeat(), 1.0));
 
     color = gammaEncode(color);
 
