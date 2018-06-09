@@ -295,13 +295,13 @@ void main() {
         viewCoord,
         ray);
 
-    float rayhit = raymarch(ray);
+    float ray_hit_distance = raymarch(ray);
 
-    vec3 normal = gradient(ray.origin + ray.direction * rayhit);
+    vec3 normal = gradient(ray.origin + ray.direction * ray_hit_distance);
 
     vec3 color = vec3(0);
 
-    if (rayhit < 0) {
+    if (ray_hit_distance < 0) {
         color = drawBackground(ray);
     } else {
         color = phong(
@@ -313,7 +313,7 @@ void main() {
     }
 
     // distance fog
-    color = color * distanceBlend(rayhit, U_FOG_DISTANCE * 10.0);
+    color = color * distanceBlend(ray_hit_distance, U_FOG_DISTANCE * 10.0);
 
     // beat tracking tuning viz
     //color = vec3(rampCurveDown(getBeat(), 1.0));
