@@ -187,13 +187,13 @@ float sceneSDF(vec3 p, inout int primitive_id) {
     float cube = cubeSDF(vec3(0, 0, 0), vec3(1), p);
     float sphere = sphereSDF(vec3(0, 0, 0), U_TUNNEL_WIDTH, p);
 
-    float dist = opIntersect(sphere, cube);
+    float dist_tunnel = opIntersect(sphere, cube);
 
     // i'm using this to query which primitive the ray hit, in order to shade
     // different things differently. there may be a much better way to do this
     primitive_id = PRIMITIVE_TUNNEL;
 
-    return dist;
+    return dist_tunnel;
 }
 
 // ref: http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/
