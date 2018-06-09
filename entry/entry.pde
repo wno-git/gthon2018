@@ -35,6 +35,8 @@ void draw() {
 
     /* art */
     float tunnelDistance = (float) moonlander.getValue("tunnelDistance");
+    float tunnelWidth = (float) moonlander.getValue("tunnelWidth");
+    float fogDistance = (float) moonlander.getValue("fogDistance");
 
     reiska.set("U_TIME", time);
     reiska.set("U_BEAT", beat);
@@ -42,6 +44,8 @@ void draw() {
     reiska.set("U_CAMROT_Y", camRotY);
     reiska.set("U_CAMROT_Z", camRotZ);
     reiska.set("U_TUNNEL_DISTANCE", tunnelDistance);
+    reiska.set("U_TUNNEL_WIDTH", tunnelWidth);
+    reiska.set("U_FOG_DISTANCE", fogDistance);
 
     shader(reiska);
     rect(0, 0, width, height);

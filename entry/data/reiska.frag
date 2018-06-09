@@ -10,6 +10,8 @@ uniform float U_CAMROT_X;
 uniform float U_CAMROT_Y;
 uniform float U_CAMROT_Z;
 uniform float U_TUNNEL_DISTANCE;
+uniform float U_TUNNEL_WIDTH;
+uniform float U_FOG_DISTANCE;
 
 struct Ray {
     vec3 origin;
@@ -164,7 +166,7 @@ float sceneSDF(vec3 p) {
     //vec3 p1 = opRotation(vec3(0.3, 1, 0.1), U_TIME*1.3, p);
 
     float cube = cubeSDF(vec3(0, 0, 0), vec3(1), p);
-    float sphere = sphereSDF(vec3(0, 0, 0), 1.4, p);
+    float sphere = sphereSDF(vec3(0, 0, 0), U_TUNNEL_WIDTH, p);
 
     return max(-sphere, cube);
 }
@@ -311,7 +313,7 @@ void main() {
     }
 
     // distance fog
-    color = color * distanceBlend(rayhit, 10.0);
+    color = color * distanceBlend(rayhit, U_FOG_DISTANCE * 10.0);
 
     // beat tracking tuning viz
     //color = vec3(rampCurveDown(getBeat(), 1.0));
