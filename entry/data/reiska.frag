@@ -248,6 +248,9 @@ float sceneSDF(vec3 p, inout int primitive_id) {
 
     vec3 p_blob = opTranslate(p, vec3(0, 0, -1));
 
+    p_blob = opRotation(vec3(0, 1, 0), getBeat() * 3.14, p_blob);
+    p_blob = opRotation(vec3(0, 0, 1), getBeat() * 3.14 * 0.3, p_blob);
+
     p_blob = opTranslate(p_blob, vec3(U_DEBUG, 0, 0));
 
     float dist_blob = blobSDF(p_blob);
