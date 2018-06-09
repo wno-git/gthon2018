@@ -14,7 +14,8 @@ void setup() {
     reiska = loadShader("reiska.frag");
     reiska.set("resolution", float(width), float(height));
 
-    moonlander = Moonlander.initWithSoundtrack(this, "Decktonic_-_05_-_Minimize_Me_feat_Daniel_Davis.mp3", 128, 8);
+    moonlander = Moonlander.initWithSoundtrack(this,
+        "Decktonic_-_05_-_Minimize_Me_feat_Daniel_Davis_start_at_beat.mp3", 128, 8);
     moonlander.start();
 }
 
