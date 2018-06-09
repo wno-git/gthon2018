@@ -40,6 +40,8 @@ struct Light {
 
 const float GAMMA = 2.2;
 
+/* GAMMA FUNCS */
+
 vec3 gammaDecode(vec3 color) {
     return pow(color, vec3(GAMMA));
 }
@@ -48,10 +50,16 @@ vec3 gammaEncode(vec3 color) {
     return pow(color, vec3(1.0 / GAMMA));
 }
 
+/* COLOR FUNCS */
+
+vec3 rgb8ToF(int r, int g, int b) {
+    return vec3(r, g, b) / 255.0;
+}
+
 /* COLORS */
 
-vec3 PURPLE_SRGB = vec3((146.0/255.0), (7.0/255.0), 255.0);
-vec3 ORANGERED_SRGB = vec3(1.0, (45.0/255.0), 0);
+vec3 PURPLE_SRGB = rgb8ToF(146, 7, 255);
+vec3 ORANGERED_SRGB = rgb8ToF(255, 45, 0);
 
 vec3 PURPLE = gammaDecode(PURPLE_SRGB);
 vec3 ORANGERED = gammaDecode(ORANGERED_SRGB);
