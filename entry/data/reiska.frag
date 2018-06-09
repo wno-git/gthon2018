@@ -44,6 +44,10 @@ struct Light {
 
 const float GAMMA = 2.2;
 
+/* PRIMITIVES */
+
+const int PRIMITIVE_TUNNEL = 1;
+
 /* GAMMA FUNCS */
 
 vec3 gammaDecode(vec3 color) {
@@ -68,6 +72,17 @@ vec3 ORANGERED_SRGB = rgb8ToF(255, 45, 0);
 vec3 PURPLE = gammaDecode(PURPLE_SRGB);
 vec3 ORANGERED = gammaDecode(ORANGERED_SRGB);
 vec3 GREEN_MAX = vec3(0, 1, 0);
+
+
+/* MATERIALS */
+
+Material MATERIAL_TUNNEL = Material(
+    ORANGERED,
+    1.0,
+    1.0,
+    1.0,
+    7
+);
 
 /* THINGS */
 
@@ -159,7 +174,7 @@ float opIntersect(float a, float b) {
     return max(-a, b);
 }
 
-float sceneSDF(vec3 p) {
+float sceneSDF(vec3 p, inout int primitive_id) {
     float tunnel_distance = getBeat() * 2.0 + U_TUNNEL_DISTANCE;
     p = opTranslate(p, vec3(0, 0, tunnel_distance));
 
@@ -172,21 +187,29 @@ float sceneSDF(vec3 p) {
     float cube = cubeSDF(vec3(0, 0, 0), vec3(1), p);
     float sphere = sphereSDF(vec3(0, 0, 0), U_TUNNEL_WIDTH, p);
 
-    return opIntersect(sphere, cube);
+    float dist = opIntersect(sphere, cube);
+
+    // i'm using this to query which primitive the ray hit, in order to shade
+    // different things differently. there may be a much better way to do this
+    primitive_id = PRIMITIVE_TUNNEL;
+
+    return dist;
 }
 
 // ref: http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/
-float raymarch(Ray ray) {
+float raymarch(Ray ray, inout int ray_primitive_id) {
     const float FAR = 100.0;
     const float EPSILON = 0.001;
     const int STEPS_MAX = 100;
     const float NO_HIT = -1.0;
 
+    ray_primitive_id = -1;
+
     float dist = 0.0;
     for (int i = 0; i < STEPS_MAX; ++i) {
         vec3 march = ray.origin + ray.direction * dist;
 
-        float dist_closest = sceneSDF(march);
+        float dist_closest = sceneSDF(march, ray_primitive_id);
 
         if (dist_closest < EPSILON) return dist;
 
@@ -201,14 +224,16 @@ float raymarch(Ray ray) {
 vec3 gradient(vec3 hit) {
     float EPSILON = 0.0001;
 
+    int zzz = 0; // don't care inout
+
     vec3 ex = EPSILON * vec3(1, 0, 0);
-    float dx = sceneSDF(hit + ex) - sceneSDF(hit - ex);
+    float dx = sceneSDF(hit + ex, zzz) - sceneSDF(hit - ex, zzz);
 
     vec3 ey = EPSILON * vec3(0, 1, 0);
-    float dy = sceneSDF(hit + ey) - sceneSDF(hit - ey);
+    float dy = sceneSDF(hit + ey, zzz) - sceneSDF(hit - ey, zzz);
 
     vec3 ez = EPSILON * vec3(0, 0, 1);
-    float dz = sceneSDF(hit + ez) - sceneSDF(hit - ez);
+    float dz = sceneSDF(hit + ez, zzz) - sceneSDF(hit - ez, zzz);
 
     return normalize(vec3(dx, dy, dz));
 }
@@ -266,6 +291,12 @@ float distanceBlend(float hitDistance, float depth) {
     }
 }
 
+Material getMaterial(int primitive_id) {
+    if (primitive_id == PRIMITIVE_TUNNEL) {
+        return MATERIAL_TUNNEL;
+    }
+}
+
 void main() {
     Camera camera = Camera(
         vec3(0),
@@ -273,14 +304,6 @@ void main() {
         vec3(0, 0, -1),
         radians(90.0),
         float(resolution.x) / float(resolution.y)
-    );
-
-    Material sphereMaterial = Material(
-        ORANGERED,
-        1.0,
-        1.0,
-        1.0,
-        7
     );
 
     vec3 ambient = vec3(0.1, 0.1, 0.1);
@@ -299,7 +322,8 @@ void main() {
         viewCoord,
         ray);
 
-    float ray_hit_distance = raymarch(ray);
+    int ray_hit_primitive = 0;
+    float ray_hit_distance = raymarch(ray, ray_hit_primitive);
 
     vec3 normal = gradient(ray.origin + ray.direction * ray_hit_distance);
 
@@ -308,8 +332,9 @@ void main() {
     if (ray_hit_distance < 0) {
         color = drawBackground(ray);
     } else {
+        Material material = getMaterial(ray_hit_primitive);
         color = phong(
-            sphereMaterial,
+            material,
             -ray.direction,
             normal,
             ambient,
