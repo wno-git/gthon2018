@@ -16,12 +16,22 @@
 			<key row="0" value="1.35" interpolation="0"/>
 		</track>
 		<track name="fogDistance">
-			<key row="0" value="0.5" interpolation="0"/>
+			<key row="0" value="0" interpolation="1"/>
+			<key row="24" value="0.4" interpolation="0"/>
 		</track>
 		<track name="blobDisplace">
-			<key row="0" value="0.04" interpolation="0"/>
+			<key row="0" value="0.03" interpolation="0"/>
 		</track>
-		<track name="debug"/>
+		<track name="debug">
+			<key row="0" value="0" interpolation="0"/>
+		</track>
+		<track name="fovAdjust">
+			<key row="0" value="1" interpolation="2"/>
+			<key row="24" value="1" interpolation="0"/>
+		</track>
+		<track name="blobZ">
+			<key row="0" value="-100" interpolation="0"/>
+		</track>
 	</tracks>
 	<bookmarks/>
 </sync>

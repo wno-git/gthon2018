@@ -9,10 +9,12 @@ uniform float U_BEAT;
 uniform float U_CAMROT_X;
 uniform float U_CAMROT_Y;
 uniform float U_CAMROT_Z;
+uniform float U_FOVADJUST;
 uniform float U_TUNNEL_DISTANCE;
 uniform float U_TUNNEL_WIDTH;
 uniform float U_FOG_DISTANCE;
 uniform float U_BLOB_DISPLACE;
+uniform float U_BLOB_Z;
 uniform float U_DEBUG;
 
 struct Ray {
@@ -246,7 +248,7 @@ float sceneSDF(vec3 p, inout int primitive_id) {
 
     float dist_tunnel = opIntersect(tunnel_sphere, tunnel_cube);
 
-    vec3 p_blob = opTranslate(p, vec3(0, 0, -1));
+    vec3 p_blob = opTranslate(p, vec3(0, 0, U_BLOB_Z));
 
     p_blob = opRotation(vec3(0, 1, 0), getBeat() * 3.14, p_blob);
     p_blob = opRotation(vec3(0, 0, 1), getBeat() * 3.14 * 0.3, p_blob);
@@ -380,7 +382,7 @@ void main() {
         vec3(0),
         vec3(0, 1, 0),
         vec3(0, 0, -1),
-        radians(90.0),
+        radians(90.0 * U_FOVADJUST),
         float(resolution.x) / float(resolution.y)
     );
 
