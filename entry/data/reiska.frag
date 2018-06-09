@@ -19,6 +19,7 @@ uniform float U_FOG_DISTANCE;
 uniform float U_BLOB_DISPLACE;
 uniform float U_BLOB_ROTSPEED;
 uniform float U_BLOB_BLINK;
+uniform float U_BLOB_SPREAD;
 uniform float U_BLOB_Z;
 uniform float U_DEBUG;
 
@@ -215,7 +216,7 @@ float blobSDF(vec3 p) {
 
     // quite a mess creating the blob's like this by hand :/
 
-    const float spread = 0.2;
+    const float spread = U_BLOB_SPREAD;
 
     vec3 p_blob1 = opTranslate(p, vec3(spread, 0, 0));
     float blob1 = sphereSDF(p_blob1, blob_size);

@@ -24,7 +24,8 @@
 			<key row="0" value="1.35" interpolation="0"/>
 			<key row="768" value="1.35" interpolation="1"/>
 			<key row="880" value="1.1" interpolation="0"/>
-			<key row="896" value="1.35" interpolation="0"/>
+			<key row="896" value="1.1" interpolation="2"/>
+			<key row="912" value="1.4" interpolation="0"/>
 		</track>
 		<track name="fogDistance">
 			<key row="0" value="0" interpolation="1"/>
@@ -82,6 +83,11 @@
 		<track name="tunnelBlink">
 			<key row="0" value="0" interpolation="0"/>
 			<key row="768" value="1" interpolation="0"/>
+			<key row="896" value="0" interpolation="0"/>
+		</track>
+		<track name="blobSpread">
+			<key row="0" value="0.24" interpolation="0"/>
+			<key row="768" value="0.24" interpolation="1"/>
 			<key row="896" value="0" interpolation="0"/>
 		</track>
 	</tracks>
