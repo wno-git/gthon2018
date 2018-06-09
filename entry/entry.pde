@@ -14,6 +14,8 @@ int BPM = 128;
 void setup() {
     size(720, 480, P3D);
 
+    noCursor();
+
     titleFont = createFont("Exo-Light.ttf", 32);
     creditsFont = createFont("Exo-Light.ttf", 23);
 
@@ -21,7 +23,7 @@ void setup() {
     reiska.set("resolution", float(width), float(height));
 
     moonlander = Moonlander.initWithSoundtrack(this,
-        "Decktonic_-_05_-_Minimize_Me_feat_Daniel_Davis_start_at_beat.mp3", BPM, 8);
+        "Decktonic_-_05_-_Minimize_Me_feat_Daniel_Davis_final.mp3", BPM, 8);
     moonlander.start();
 }
 
@@ -87,6 +89,8 @@ void draw() {
         textFont(titleFont);
         text("Infection", width * 0.15, height * 0.75);
         textFont(creditsFont);
-        text("by substandard", width * 0.15, height * 0.8);
+        text("by Substandard", width * 0.15, height * 0.8);
+    } else if (showTitle == 666) {
+        exit()
     }
 }
