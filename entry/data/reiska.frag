@@ -22,6 +22,7 @@ uniform float U_BLOB_BLINK;
 uniform float U_BLOB_SPREAD;
 uniform float U_BLOB_SHAKE;
 uniform float U_BLOB_Z;
+uniform float U_FADEOUT;
 uniform float U_DEBUG;
 
 struct Ray {
@@ -86,6 +87,7 @@ vec3 ORANGERED = gammaDecode(rgb8ToF(255, 45, 0));
 vec3 BLUE = gammaDecode(rgb8ToF(0, 255, 160));
 vec3 GREENGOO = gammaDecode(rgb8ToF(20, 204, 31));
 vec3 GREEN_MAX = vec3(0, 1, 0);
+vec3 WHITE = vec3(1);
 
 
 /* THINGS */
@@ -452,6 +454,8 @@ void main() {
 
     // beat tracking tuning viz
     //color = vec3(rampCurveDown(getBeat(), 1.0));
+
+    color = mix(color, WHITE, U_FADEOUT);
 
     color = gammaEncode(color);
 
