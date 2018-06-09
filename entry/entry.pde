@@ -91,6 +91,6 @@ void draw() {
         textFont(creditsFont);
         text("by Substandard", width * 0.15, height * 0.8);
     } else if (showTitle == 666) {
-        exit()
+        exit();
     }
 }
