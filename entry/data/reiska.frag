@@ -47,6 +47,7 @@ const float GAMMA = 2.2;
 /* PRIMITIVES */
 
 const int PRIMITIVE_TUNNEL = 1;
+const int PRIMITIVE_BLOB = 2;
 
 /* GAMMA FUNCS */
 
@@ -184,17 +185,28 @@ float sceneSDF(vec3 p, inout int primitive_id) {
 
     //vec3 p1 = opRotation(vec3(0.3, 1, 0.1), U_TIME*1.3, p);
 
-    float cube = cubeSDF(vec3(0, 0, 0), vec3(1), p);
+    float tunnel_cube = cubeSDF(vec3(0, 0, 0), vec3(1), p);
 
-    float sphere = sphereSDF(p, U_TUNNEL_WIDTH);
+    float tunnel_sphere = sphereSDF(p, U_TUNNEL_WIDTH);
 
-    float dist_tunnel = opIntersect(sphere, cube);
+    float dist_tunnel = opIntersect(tunnel_sphere, tunnel_cube);
+
+    float dist_blob = sphereSDF(p, 0.3);
 
     // i'm using this to query which primitive the ray hit, in order to shade
     // different things differently. there may be a much better way to do this
-    primitive_id = PRIMITIVE_TUNNEL;
 
-    return dist_tunnel;
+    float dist = 0;
+
+    if (dist_blob < dist_tunnel) {
+        primitive_id = PRIMITIVE_BLOB;
+        dist = dist_blob;
+    } else {
+        primitive_id = PRIMITIVE_TUNNEL;
+        dist = dist_tunnel;
+    }
+
+    return dist;
 }
 
 // ref: http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/
@@ -293,7 +305,10 @@ float distanceBlend(float hitDistance, float depth) {
 }
 
 Material getMaterial(int primitive_id) {
-    if (primitive_id == PRIMITIVE_TUNNEL) {
+    int p = primitive_id; // shorthand
+    if (p == PRIMITIVE_TUNNEL) {
+        return MATERIAL_TUNNEL;
+    } else if (p == PRIMITIVE_BLOB) {
         return MATERIAL_TUNNEL;
     }
 }
