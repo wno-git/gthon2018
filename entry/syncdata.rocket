@@ -108,6 +108,9 @@
 			<key row="1024" value="0" interpolation="1"/>
 			<key row="1056" value="1" interpolation="0"/>
 		</track>
+		<track name="showTitle">
+			<key row="1056" value="1" interpolation="0"/>
+		</track>
 	</tracks>
 	<bookmarks/>
 </sync>

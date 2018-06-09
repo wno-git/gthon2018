@@ -4,12 +4,18 @@ import ddf.minim.*;
 
 PShader reiska;
 
+PFont titleFont;
+PFont creditsFont;
+
 Moonlander moonlander;
 
 int BPM = 128;
 
 void setup() {
     size(720, 480, P3D);
+
+    titleFont = createFont("Exo-Light.ttf", 32);
+    creditsFont = createFont("Exo-Light.ttf", 23);
 
     reiska = loadShader("reiska.frag");
     reiska.set("resolution", float(width), float(height));
@@ -34,6 +40,7 @@ void draw() {
     float camPosZ = (float) moonlander.getValue("camPosZ");
     float debugU = (float) moonlander.getValue("debug");
     float fovAdjust = (float) moonlander.getValue("fovAdjust");
+    int showTitle = moonlander.getIntValue("showTitle");
 
     float beat = time * (BPM / 60.0);
 
@@ -71,6 +78,15 @@ void draw() {
     reiska.set("U_BLOB_Z", blobZ);
     reiska.set("U_DEBUG", debugU);
 
-    shader(reiska);
-    rect(0, 0, width, height);
+    if (showTitle == 0) {
+        shader(reiska);
+        rect(0, 0, width, height);
+    } else if (showTitle == 1) {
+        background(255);
+        fill(16);
+        textFont(titleFont);
+        text("Infection", width * 0.15, height * 0.75);
+        textFont(creditsFont);
+        text("by substandard", width * 0.15, height * 0.8);
+    }
 }
