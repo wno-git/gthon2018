@@ -31,10 +31,13 @@ void draw() {
     float camRotY = (float) moonlander.getValue("camRotY");
     float camRotZ = (float) moonlander.getValue("camRotZ");
 
+    float beat = time / (BPM / 60.0);
+
     /* art */
     float tunnelDistance = (float) moonlander.getValue("tunnelDistance");
 
     reiska.set("U_TIME", time);
+    reiska.set("U_BEAT", beat);
     reiska.set("U_CAMROT_X", camRotX);
     reiska.set("U_CAMROT_Y", camRotY);
     reiska.set("U_CAMROT_Z", camRotZ);

@@ -5,6 +5,7 @@ varying vec4 vertTexCoord;
 
 uniform vec2 resolution;
 uniform float U_TIME;
+uniform float U_BEAT;
 uniform float U_CAMROT_X;
 uniform float U_CAMROT_Y;
 uniform float U_CAMROT_Z;
@@ -142,7 +143,8 @@ float opRepeat(float p, float size) {
 }
 
 float sceneSDF(vec3 p) {
-    p = opTranslate(p, vec3(0, 0, U_TUNNEL_DISTANCE));
+    float beat_timing = U_BEAT * 9 + 0.2;
+    p = opTranslate(p, vec3(0, 0, beat_timing));
 
     p.x = opRepeat(p.x, 2);
     p.y = opRepeat(p.y, 2);
