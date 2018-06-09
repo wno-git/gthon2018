@@ -15,7 +15,7 @@ void setup() {
     reiska.set("resolution", float(width), float(height));
 
     moonlander = Moonlander.initWithSoundtrack(this,
-        "Decktonic_-_05_-_Minimize_Me_feat_Daniel_Davis_start_at_beat.mp3", 128, 8);
+        "Decktonic_-_05_-_Minimize_Me_feat_Daniel_Davis_start_at_beat.mp3", BPM, 8);
     moonlander.start();
 }
 
@@ -31,7 +31,7 @@ void draw() {
     float camRotY = (float) moonlander.getValue("camRotY");
     float camRotZ = (float) moonlander.getValue("camRotZ");
 
-    float beat = time / (BPM / 60.0);
+    float beat = time * (BPM / 60.0);
 
     /* art */
     float tunnelDistance = (float) moonlander.getValue("tunnelDistance");
