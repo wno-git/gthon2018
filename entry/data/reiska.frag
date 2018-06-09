@@ -154,8 +154,8 @@ float opRepeat(float p, float size) {
 }
 
 float sceneSDF(vec3 p) {
-    float beat_timing = U_BEAT * 9 + 0.2;
-    p = opTranslate(p, vec3(0, 0, beat_timing));
+    float tunnel_distance = getBeat() * 2.0 + U_TUNNEL_DISTANCE;
+    p = opTranslate(p, vec3(0, 0, tunnel_distance));
 
     p.x = opRepeat(p.x, 2);
     p.y = opRepeat(p.y, 2);
