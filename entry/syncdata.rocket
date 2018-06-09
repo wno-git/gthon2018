@@ -29,6 +29,7 @@
 		</track>
 		<track name="blobDisplace">
 			<key row="0" value="0.03" interpolation="0"/>
+			<key row="512" value="0.01" interpolation="0"/>
 		</track>
 		<track name="debug">
 			<key row="0" value="0" interpolation="0"/>
@@ -39,6 +40,7 @@
 			<key row="280" value="1" interpolation="3"/>
 			<key row="296" value="0.8" interpolation="1"/>
 			<key row="312" value="1" interpolation="0"/>
+			<key row="512" value="0.5" interpolation="0"/>
 		</track>
 		<track name="blobZ">
 			<key row="0" value="-100" interpolation="0"/>
@@ -52,6 +54,10 @@
 			<key row="512" value="0" interpolation="0"/>
 		</track>
 		<track name="camPosZ"/>
+		<track name="blobRotationSpeed">
+			<key row="0" value="1" interpolation="0"/>
+			<key row="512" value="0.1" interpolation="0"/>
+		</track>
 	</tracks>
 	<bookmarks/>
 </sync>
