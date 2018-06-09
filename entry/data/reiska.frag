@@ -9,6 +9,8 @@ uniform float U_BEAT;
 uniform float U_CAMROT_X;
 uniform float U_CAMROT_Y;
 uniform float U_CAMROT_Z;
+uniform float U_CAMPOS_X;
+uniform float U_CAMPOS_Z;
 uniform float U_FOVADJUST;
 uniform float U_TUNNEL_DISTANCE;
 uniform float U_TUNNEL_WIDTH;
@@ -233,6 +235,8 @@ float blobSDF(vec3 p) {
 
 float sceneSDF(vec3 p, inout int primitive_id) {
     p = opRotation(vec3(0, 1, 0), U_CAMROT_Y * PI, p);
+    p = opTranslate(p, vec3(U_CAMPOS_X, 0, 0));
+    p = opTranslate(p, vec3(0, 0, U_CAMPOS_Z));
 
     vec3 p_tunnel = p;
 

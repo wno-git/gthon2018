@@ -30,6 +30,8 @@ void draw() {
     float camRotX = (float) moonlander.getValue("camRotX");
     float camRotY = (float) moonlander.getValue("camRotY");
     float camRotZ = (float) moonlander.getValue("camRotZ");
+    float camPosX = (float) moonlander.getValue("camPosX");
+    float camPosZ = (float) moonlander.getValue("camPosZ");
     float debugU = (float) moonlander.getValue("debug");
     float fovAdjust = (float) moonlander.getValue("fovAdjust");
 
@@ -47,6 +49,8 @@ void draw() {
     reiska.set("U_CAMROT_X", camRotX);
     reiska.set("U_CAMROT_Y", camRotY);
     reiska.set("U_CAMROT_Z", camRotZ);
+    reiska.set("U_CAMPOS_X", camPosX);
+    reiska.set("U_CAMPOS_Z", camPosZ);
     reiska.set("U_FOVADJUST", fovAdjust);
     reiska.set("U_TUNNEL_DISTANCE", tunnelDistance);
     reiska.set("U_TUNNEL_WIDTH", tunnelWidth);

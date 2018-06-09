@@ -11,6 +11,8 @@
 			<key row="248" value="-0.2" interpolation="0"/>
 			<key row="288" value="-0.2" interpolation="3"/>
 			<key row="296" value="0" interpolation="0"/>
+			<key row="384" value="-0.3" interpolation="0"/>
+			<key row="512" value="0" interpolation="0"/>
 		</track>
 		<track name="camRotZ">
 			<key row="0" value="0" interpolation="0"/>
@@ -45,6 +47,11 @@
 			<key row="299" value="-1.7" interpolation="2"/>
 			<key row="301" value="-1.5" interpolation="0"/>
 		</track>
+		<track name="camPosX">
+			<key row="384" value="-2" interpolation="0"/>
+			<key row="512" value="0" interpolation="0"/>
+		</track>
+		<track name="camPosZ"/>
 	</tracks>
 	<bookmarks/>
 </sync>
