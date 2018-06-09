@@ -264,7 +264,7 @@ float sceneSDF(vec3 p, inout int primitive_id) {
     vec3 p_blob = opTranslate(p, vec3(0, 0, U_BLOB_Z));
 
     float shake_magic = 0.45;
-    float beat_magic = getBeat() * 12;
+    float beat_magic = getBeat() * 17;
 
     p_blob = opTranslate(p_blob,
         vec3(sin(beat_magic),

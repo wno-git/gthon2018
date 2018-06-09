@@ -30,6 +30,8 @@
 		<track name="fogDistance">
 			<key row="0" value="0" interpolation="1"/>
 			<key row="24" value="0.5" interpolation="0"/>
+			<key row="976" value="0.5" interpolation="1"/>
+			<key row="1024" value="2" interpolation="0"/>
 		</track>
 		<track name="blobDisplace">
 			<key row="0" value="0.03" interpolation="0"/>
@@ -68,7 +70,7 @@
 			<key row="299" value="-1.7" interpolation="2"/>
 			<key row="301" value="-1.5" interpolation="0"/>
 			<key row="960" value="-1.5" interpolation="3"/>
-			<key row="976" value="-10" interpolation="0"/>
+			<key row="976" value="-30" interpolation="0"/>
 		</track>
 		<track name="camPosX">
 			<key row="0" value="0" interpolation="0"/>
@@ -98,8 +100,8 @@
 		<track name="blobShake">
 			<key row="0" value="0" interpolation="0"/>
 			<key row="896" value="0" interpolation="3"/>
-			<key row="960" value="0.1" interpolation="1"/>
-			<key row="968" value="0" interpolation="0"/>
+			<key row="960" value="0.1" interpolation="0"/>
+			<key row="961" value="0" interpolation="0"/>
 		</track>
 	</tracks>
 	<bookmarks/>
