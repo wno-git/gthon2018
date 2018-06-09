@@ -6,19 +6,21 @@ PShader reiska;
 
 PFont titleFont;
 PFont creditsFont;
+PFont finePrint;
 
 Moonlander moonlander;
 
 int BPM = 128;
 
 void setup() {
-    //size(720, 480, P3D);
+    //size(1280, 720, P3D);
     fullScreen(P3D);
 
     noCursor();
 
-    titleFont = createFont("Exo-Light.ttf", 32);
-    creditsFont = createFont("Exo-Light.ttf", 23);
+    titleFont = createFont("Exo-Light.ttf", 64);
+    creditsFont = createFont("Exo-Light.ttf", 46);
+    finePrint = createFont("Exo-Light.ttf", 26);
 
     reiska = loadShader("reiska.frag");
     reiska.set("resolution", float(width), float(height));
@@ -91,6 +93,9 @@ void draw() {
         text("Infection", width * 0.15, height * 0.75);
         textFont(creditsFont);
         text("by Substandard", width * 0.15, height * 0.8);
+        textFont(finePrint);
+        text("music: Decktonic - Minimize Me (feat. Daniel Davis)",
+            width * 0.15, height * 0.87);
     } else if (showTitle == 666) {
         exit();
     }
