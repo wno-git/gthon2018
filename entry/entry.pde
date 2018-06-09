@@ -12,7 +12,8 @@ Moonlander moonlander;
 int BPM = 128;
 
 void setup() {
-    size(720, 480, P3D);
+    //size(720, 480, P3D);
+    fullScreen(P3D);
 
     noCursor();
 
