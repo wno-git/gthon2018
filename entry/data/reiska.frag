@@ -184,22 +184,27 @@ float opIntersect(float a, float b) {
 }
 
 float sceneSDF(vec3 p, inout int primitive_id) {
-    float tunnel_distance = getBeat() * 2.0 + U_TUNNEL_DISTANCE;
-    p = opTranslate(p, vec3(0, 0, tunnel_distance));
+    vec3 p_tunnel = p;
 
-    p.x = opRepeat(p.x, 2);
-    p.y = opRepeat(p.y, 2);
-    p.z = opRepeat(p.z, 2);
+    float tunnel_distance = getBeat() * 2.0 + U_TUNNEL_DISTANCE;
+    p_tunnel = opTranslate(p, vec3(0, 0, tunnel_distance));
+
+    p_tunnel.x = opRepeat(p_tunnel.x, 2);
+    p_tunnel.y = opRepeat(p_tunnel.y, 2);
+    p_tunnel.z = opRepeat(p_tunnel.z, 2);
 
     //vec3 p1 = opRotation(vec3(0.3, 1, 0.1), U_TIME*1.3, p);
 
-    float tunnel_cube = cubeSDF(vec3(0, 0, 0), vec3(1), p);
+    float tunnel_cube = cubeSDF(vec3(0, 0, 0), vec3(1), p_tunnel);
 
-    float tunnel_sphere = sphereSDF(p, U_TUNNEL_WIDTH);
+    float tunnel_sphere = sphereSDF(p_tunnel, U_TUNNEL_WIDTH);
 
     float dist_tunnel = opIntersect(tunnel_sphere, tunnel_cube);
 
-    float dist_blob = sphereSDF(p, 0.3);
+    vec3 p_blob = opTranslate(p, vec3(0, 0, -1));
+
+    const float blob_size = 0.1 + rampCurveDown(getBeat(), 1.0)*0.1;
+    float dist_blob = sphereSDF(p_blob, blob_size);
 
     // i'm using this to query which primitive the ray hit, in order to shade
     // different things differently. there may be a much better way to do this
