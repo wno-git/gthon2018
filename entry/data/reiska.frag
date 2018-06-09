@@ -227,8 +227,9 @@ vec2 pixelizeCoord(vec2 coord, float size) {
     return floor(coord * size) / size;
 }
 
-float fog(float hitDistance, float depth) {
-    // could be used as a depth visualization as well
+float distanceBlend(float hitDistance, float depth) {
+    // visualize distance
+    // could be used as fog too
     if (hitDistance < 0) {
         return vec3(0);
     } else {
@@ -286,8 +287,8 @@ void main() {
             light);
     }
 
-    // visulize depth
-    color = color * fog(rayhit, 10.0);
+    // distance fog
+    color = color * distanceBlend(rayhit, 10.0);
 
     color = gammaEncode(color);
 
