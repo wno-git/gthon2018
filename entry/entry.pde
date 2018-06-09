@@ -28,7 +28,7 @@ void draw() {
     float camRotY = (float) moonlander.getValue("camRotY");
     float camRotZ = (float) moonlander.getValue("camRotZ");
 
-    reiska.set("time", time);
+    reiska.set("U_TIME", time);
     reiska.set("camRotX", camRotX);
     reiska.set("camRotY", camRotY);
     reiska.set("camRotZ", camRotZ);

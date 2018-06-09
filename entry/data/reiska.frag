@@ -4,7 +4,8 @@ varying vec4 vertColor;
 varying vec4 vertTexCoord;
 
 uniform vec2 resolution;
-uniform float time;
+uniform float U_TIME;
+
 
 struct Ray {
     vec3 origin;
@@ -132,13 +133,13 @@ float opRepeat(float p, float size) {
 float sceneSDF(vec3 p) {
     p = opTranslate(p, vec3(0, 0, -5));
 
-    p = opTranslate(p, vec3(0, 0, time));
+    p = opTranslate(p, vec3(0, 0, U_TIME));
 
     p.x = opRepeat(p.x, 2);
     p.y = opRepeat(p.y, 2);
     p.z = opRepeat(p.z, 2);
 
-    //vec3 p1 = opRotation(vec3(0.3, 1, 0.1), time*1.3, p);
+    //vec3 p1 = opRotation(vec3(0.3, 1, 0.1), U_TIME*1.3, p);
 
     float cube = cubeSDF(vec3(0, 0, 0), vec3(1), p);
     float sphere = sphereSDF(vec3(0, 0, 0), 1.4, p);
