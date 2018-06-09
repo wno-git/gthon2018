@@ -14,6 +14,7 @@ uniform float U_CAMPOS_Z;
 uniform float U_FOVADJUST;
 uniform float U_TUNNEL_DISTANCE;
 uniform float U_TUNNEL_WIDTH;
+uniform float U_TUNNEL_BLINK;
 uniform float U_FOG_DISTANCE;
 uniform float U_BLOB_DISPLACE;
 uniform float U_BLOB_ROTSPEED;
@@ -80,6 +81,7 @@ vec3 PURPLE_SRGB = rgb8ToF(146, 7, 255);
 
 vec3 PURPLE = gammaDecode(PURPLE_SRGB);
 vec3 ORANGERED = gammaDecode(rgb8ToF(255, 45, 0));
+vec3 BLUE = gammaDecode(rgb8ToF(0, 255, 160));
 vec3 GREENGOO = gammaDecode(rgb8ToF(20, 204, 31));
 vec3 GREEN_MAX = vec3(0, 1, 0);
 
@@ -98,7 +100,7 @@ float rampCurveDown(float beat, float length) {
 /* MATERIALS */
 
 Material MATERIAL_TUNNEL = Material(
-    ORANGERED,
+    mix(ORANGERED, BLUE, rampCurveDown(getBeat(), 3.0) * U_TUNNEL_BLINK),
     1.0,
     1.0,
     0.2,

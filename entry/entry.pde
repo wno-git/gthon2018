@@ -44,6 +44,7 @@ void draw() {
     float blobDisplace = (float) moonlander.getValue("blobDisplace");
     float blobRotationSpeed = (float) moonlander.getValue("blobRotationSpeed");
     float blobBlink = (float) moonlander.getValue("blobBlink");
+    float tunnelBlink = (float) moonlander.getValue("tunnelBlink");
     float blobZ = (float) moonlander.getValue("blobZ");
 
     reiska.set("U_TIME", time);
@@ -56,6 +57,7 @@ void draw() {
     reiska.set("U_FOVADJUST", fovAdjust);
     reiska.set("U_TUNNEL_DISTANCE", tunnelDistance);
     reiska.set("U_TUNNEL_WIDTH", tunnelWidth);
+    reiska.set("U_TUNNEL_BLINK", tunnelBlink);
     reiska.set("U_FOG_DISTANCE", fogDistance);
     reiska.set("U_BLOB_DISPLACE", blobDisplace);
     reiska.set("U_BLOB_ROTSPEED", blobRotationSpeed);
