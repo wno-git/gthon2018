@@ -17,6 +17,7 @@ uniform float U_TUNNEL_WIDTH;
 uniform float U_FOG_DISTANCE;
 uniform float U_BLOB_DISPLACE;
 uniform float U_BLOB_ROTSPEED;
+uniform float U_BLOB_BLINK;
 uniform float U_BLOB_Z;
 uniform float U_DEBUG;
 
@@ -83,6 +84,17 @@ vec3 GREENGOO = gammaDecode(rgb8ToF(20, 204, 31));
 vec3 GREEN_MAX = vec3(0, 1, 0);
 
 
+/* THINGS */
+
+float getBeat() {
+    const float beat_ofs = 0.05;
+    return U_BEAT + beat_ofs;
+}
+
+float rampCurveDown(float beat, float length) {
+    return 1 - mod(beat, length);
+}
+
 /* MATERIALS */
 
 Material MATERIAL_TUNNEL = Material(
@@ -96,21 +108,10 @@ Material MATERIAL_TUNNEL = Material(
 Material MATERIAL_BLOB = Material(
     GREENGOO,
     0.7,
-    0.7,
+    0.7 + (rampCurveDown(getBeat(), 1.0) * U_BLOB_BLINK),
     1.9,
     30
 );
-
-/* THINGS */
-
-float getBeat() {
-    const float beat_ofs = 0.05;
-    return U_BEAT + beat_ofs;
-}
-
-float rampCurveDown(float beat, float length) {
-    return 1 - mod(beat, length);
-}
 
 /* generate ray from a perspective camera */
 void generateRayPerspective(
