@@ -4,6 +4,8 @@ package moonlander.library;
 import java.util.HashMap;
 import java.net.Socket;
 import java.io.DataOutputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.util.logging.Logger;
 import java.io.IOException;
@@ -49,11 +51,11 @@ class SocketConnector extends Connector {
                 greetServer();
                 break;
             } catch (Exception e) {
-                if (i < triesAmount - 1) {
+            	e.printStackTrace(); //debug log
+                if (i < triesAmount - 1 && socket != null) {
                     logger.warning("SocketConnector failed to connect to Rocket. Trying again.");
                     // Close socket if it has been opened already
-                    if (socket != null)
-                        socket.close();
+                    socket.close();
                 } else {
                     logger.warning("SocketConnector failed to connect to Rocket the last time.");
                     close();
@@ -72,11 +74,12 @@ class SocketConnector extends Connector {
         try {
             socket = new Socket(host, port);
         } catch (Exception e) {
+        	e.printStackTrace();
             logger.warning(String.format("Connection to %s:%d failed.", host, port));
             throw e;
         }
-        out = new DataOutputStream(socket.getOutputStream());
-        in = new DataInputStream(socket.getInputStream());
+        out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 
         logger.finer("Connection to Rocket established.");
     }
@@ -91,7 +94,7 @@ class SocketConnector extends Connector {
         
         // Write our greetings
         out.writeBytes(CLIENT_GREET);
-
+        out.flush();
         logger.finer("Greetings sent. Now reading greetings from Rocket...");
 
         // Expect server to return with correct greetings
@@ -106,7 +109,7 @@ class SocketConnector extends Connector {
         logger.finer("Greetings read successfully.");
 
         if (!SERVER_GREET.equals(new String(greet))) {
-            logger.severe("Server didn't send correct greetings.");
+            logger.severe("Server didn't send correct greetings., received: "+ new String(greet));
             throw new Exception("Greetings mismatch");
         }
     }
@@ -128,6 +131,7 @@ class SocketConnector extends Connector {
             out.writeByte(Commands.GET_TRACK);
             out.writeInt(name.length());
             out.writeBytes(name);
+            out.flush();
         } catch (Exception e) {
             logger.severe("Communication with Rocket failed!");
         }
@@ -143,8 +147,9 @@ class SocketConnector extends Connector {
         logger.finest("Communicating row="+row+" change to rocket");
 
         try {
-            out.writeInt(Commands.SET_ROW);
+            out.writeByte(Commands.SET_ROW);
             out.writeInt(row);
+            out.flush();
         } catch (Exception e) {
             logger.severe("Communication with Rocket failed!");
         }
