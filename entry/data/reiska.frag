@@ -271,7 +271,7 @@ vec3 phong(Material material, vec3 to_camera, vec3 normal, vec3 ambient, Light l
 
     vec3 ill_diffuse =
         material.diffuse *
-            dot(normal, light_dir) * light.diffuse;
+            max(dot(normal, light_dir), 0) * light.diffuse;
 
     vec3 reflection = reflect(-light_dir, normal);
 
