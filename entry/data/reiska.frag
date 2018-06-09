@@ -20,6 +20,7 @@ uniform float U_BLOB_DISPLACE;
 uniform float U_BLOB_ROTSPEED;
 uniform float U_BLOB_BLINK;
 uniform float U_BLOB_SPREAD;
+uniform float U_BLOB_SHAKE;
 uniform float U_BLOB_Z;
 uniform float U_DEBUG;
 
@@ -261,6 +262,14 @@ float sceneSDF(vec3 p, inout int primitive_id) {
     float dist_tunnel = opIntersect(tunnel_sphere, tunnel_cube);
 
     vec3 p_blob = opTranslate(p, vec3(0, 0, U_BLOB_Z));
+
+    float shake_magic = 0.45;
+    float beat_magic = getBeat() * 12;
+
+    p_blob = opTranslate(p_blob,
+        vec3(sin(beat_magic),
+            sin(beat_magic + shake_magic),
+            sin(beat_magic + shake_magic + 0.12)) * U_BLOB_SHAKE);
 
     p_blob = opRotation(vec3(0, 1, 0),
         getBeat() * 3.14 * U_BLOB_ROTSPEED, p_blob);

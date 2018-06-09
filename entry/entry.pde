@@ -45,6 +45,7 @@ void draw() {
     float blobRotationSpeed = (float) moonlander.getValue("blobRotationSpeed");
     float blobBlink = (float) moonlander.getValue("blobBlink");
     float blobSpread = (float) moonlander.getValue("blobSpread");
+    float blobShake = (float) moonlander.getValue("blobShake");
     float tunnelBlink = (float) moonlander.getValue("tunnelBlink");
     float blobZ = (float) moonlander.getValue("blobZ");
 
@@ -64,6 +65,7 @@ void draw() {
     reiska.set("U_BLOB_ROTSPEED", blobRotationSpeed);
     reiska.set("U_BLOB_BLINK", blobBlink);
     reiska.set("U_BLOB_SPREAD", blobSpread);
+    reiska.set("U_BLOB_SHAKE", blobShake);
     reiska.set("U_BLOB_Z", blobZ);
     reiska.set("U_DEBUG", debugU);
 

@@ -57,6 +57,9 @@
 			<key row="384" value="1" interpolation="0"/>
 			<key row="512" value="0.5" interpolation="0"/>
 			<key row="640" value="1" interpolation="0"/>
+			<key row="952" value="1" interpolation="1"/>
+			<key row="965" value="1.4" interpolation="1"/>
+			<key row="981" value="1" interpolation="0"/>
 		</track>
 		<track name="blobZ">
 			<key row="0" value="-100" interpolation="0"/>
@@ -64,6 +67,8 @@
 			<key row="296" value="-1" interpolation="2"/>
 			<key row="299" value="-1.7" interpolation="2"/>
 			<key row="301" value="-1.5" interpolation="0"/>
+			<key row="960" value="-1.5" interpolation="3"/>
+			<key row="976" value="-10" interpolation="0"/>
 		</track>
 		<track name="camPosX">
 			<key row="0" value="0" interpolation="0"/>
@@ -89,6 +94,12 @@
 			<key row="0" value="0.24" interpolation="0"/>
 			<key row="768" value="0.24" interpolation="1"/>
 			<key row="896" value="0" interpolation="0"/>
+		</track>
+		<track name="blobShake">
+			<key row="0" value="0" interpolation="0"/>
+			<key row="896" value="0" interpolation="3"/>
+			<key row="960" value="0.1" interpolation="1"/>
+			<key row="968" value="0" interpolation="0"/>
 		</track>
 	</tracks>
 	<bookmarks/>
