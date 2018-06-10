@@ -1,7 +1,10 @@
+#version 450
 #define PROCESSING_COLOR_SHADER
 
 varying vec4 vertColor;
 varying vec4 vertTexCoord;
+
+out vec4 fragColor;
 
 uniform vec2 resolution;
 uniform float U_TIME;
@@ -459,5 +462,5 @@ void main() {
 
     color = gammaEncode(color);
 
-    gl_FragColor = vec4(color, 1.0);
+    fragColor = vec4(color, 1.0);
 }
