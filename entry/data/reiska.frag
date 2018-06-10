@@ -387,9 +387,9 @@ float distanceBlend(float hitDistance, float depth) {
     // visualize distance
     // could be used as fog too
     if (hitDistance < 0) {
-        return vec3(0);
+        return 0.0;
     } else {
-        return vec3(1.0 - smoothstep(0, depth, hitDistance));
+        return 1.0 - smoothstep(0, depth, hitDistance);
     }
 }
 
