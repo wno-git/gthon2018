@@ -7,12 +7,17 @@ A raymarching and SDF learning demo made at Graffathon 2018.
 
 Greetz to orgs for the nice event! \o/
 
+Known Issues
+==
+
+This glitches on NVidia / Windows for some reason. I created this on Intel
+Haswell Mobile Graphics on Linux and it worked correctly with that.
+
 Credits
 ==
 
 Music: Minimize Me (feat. Daniel Davis) by Decktonic, CC-BY-NC-SA
 http://freemusicarchive.org/music/Decktonic/Unbox_Me/Decktonic_-_Unbox_Me_-_05_Minimize_Me_feat_Daniel_Davis
-
 
 Copyright 2017 The Exo Project Authors (https://github.com/NDISCOVER/Exo-1.0)
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
