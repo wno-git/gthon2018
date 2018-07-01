@@ -87,6 +87,7 @@ void draw() {
         shader(reiska);
         rect(0, 0, width, height);
     } else if (showTitle == 1) {
+        resetShader();
         background(255);
         fill(16);
         textFont(titleFont);
