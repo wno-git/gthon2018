@@ -30,3 +30,9 @@ http://iquilezles.org/www/articles/smin/smin.htm
 
 hg_sdf for inspiration/help
 http://mercury.sexy/hg_sdf/
+
+Changelog
+==
+
+v2 Fixed shader compilation on nVidia / Windows
+v1 Initial release
