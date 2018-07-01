@@ -31,8 +31,6 @@ void setup() {
 }
 
 void draw() {
-    background(0);
-
     moonlander.update();
 
     /* utility */
@@ -84,11 +82,14 @@ void draw() {
     reiska.set("U_DEBUG", debugU);
 
     if (showTitle == 0) {
+        background(0);
         shader(reiska);
+
         rect(0, 0, width, height);
     } else if (showTitle == 1) {
-        resetShader();
         background(255);
+        resetShader();
+
         fill(16);
         textFont(titleFont);
         text("Infection", width * 0.15, height * 0.75);
