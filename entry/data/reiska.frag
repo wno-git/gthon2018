@@ -1,4 +1,4 @@
-#version 450
+#version 430
 #define PROCESSING_COLOR_SHADER
 
 varying vec4 vertColor;

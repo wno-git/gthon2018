@@ -10,7 +10,9 @@ Greetz to orgs for the nice event! \o/
 Platform
 ==
 
-This demo is released for Windows 10 (64bit).
+This demo is released for Windows 10 (64bit). It should run on nVidia and Intel
+cards with at least OpenGL 4.3.
+
 The release zip contains the Java required by Processing, hence the large file
 size.
 
@@ -40,5 +42,6 @@ Changelog
 
 v3 Fixed shading artifacts on nVidia / Windows.
    Fixed flashing between fadeout and credits.
+   Downgraded to OpenGL 4.3 for better compatibility.
 v2 Fixed shader compilation on nVidia / Windows
 v1 Initial release
