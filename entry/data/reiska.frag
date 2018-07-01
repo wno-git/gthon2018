@@ -354,7 +354,7 @@ vec3 phong(Material material, vec3 to_camera, vec3 normal, vec3 ambient, Light l
 
     vec3 reflection = reflect(-light_dir, normal);
 
-    vec3 ill_specular = vec3(0);
+    vec3 ill_specular = vec3(0.0);
 
     // TODO: this code could be simplified with some clamp() like in
     // https://paroj.github.io/gltut/Illumination/Tut11%20Phong%20Model.html
