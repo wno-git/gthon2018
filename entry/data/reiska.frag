@@ -348,9 +348,10 @@ vec3 phong(Material material, vec3 to_camera, vec3 normal, vec3 ambient, Light l
 
     const vec3 light_dir = normalize(light.position);
 
+    const float cos_normal_light = max(dot(normal, light_dir), 0.0);
+
     vec3 ill_diffuse =
-        material.diffuse *
-            max(dot(normal, light_dir), 0) * light.diffuse;
+        material.diffuse * cos_normal_light * light.diffuse;
 
     vec3 reflection = reflect(-light_dir, normal);
 
@@ -361,7 +362,7 @@ vec3 phong(Material material, vec3 to_camera, vec3 normal, vec3 ambient, Light l
 
     const float cos_reflection_camera = max(dot(reflection, to_camera), 0.0);
 
-    if (dot(light_dir, normal) > 0.0) {
+    if (cos_normal_light > 0.0) {
         ill_specular =
             material.specular *
                 pow(cos_reflection_camera, material.shininess) *
