@@ -359,10 +359,12 @@ vec3 phong(Material material, vec3 to_camera, vec3 normal, vec3 ambient, Light l
     // TODO: this code could be simplified with some clamp() like in
     // https://paroj.github.io/gltut/Illumination/Tut11%20Phong%20Model.html
 
-    if (dot(light_dir, normal) > 0) {
+    const float cos_reflection_camera = max(dot(reflection, to_camera), 0.0);
+
+    if (dot(light_dir, normal) > 0.0) {
         ill_specular =
             material.specular *
-                pow(dot(reflection, to_camera), material.shininess) *
+                pow(cos_reflection_camera, material.shininess) *
                     light.specular;
     }
 
