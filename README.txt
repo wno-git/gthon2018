@@ -7,11 +7,12 @@ A raymarching and SDF learning demo made at Graffathon 2018.
 
 Greetz to orgs for the nice event! \o/
 
-Known Issues
+Platform
 ==
 
-This glitches on NVidia / Windows for some reason. I created this on Intel
-Haswell Mobile Graphics on Linux and it worked correctly with that.
+This demo is released for Windows 10 (64bit).
+The release zip contains the Java required by Processing, hence the large file
+size.
 
 Credits
 ==
@@ -31,8 +32,13 @@ http://iquilezles.org/www/articles/smin/smin.htm
 hg_sdf for inspiration/help
 http://mercury.sexy/hg_sdf/
 
+Processing
+https://processing.org/
+
 Changelog
 ==
 
+v3 Fixed shading artifacts on nVidia / Windows.
+   Fixed flashing between fadeout and credits.
 v2 Fixed shader compilation on nVidia / Windows
 v1 Initial release
